@@ -69,7 +69,7 @@ function Header() {
             className={`button-notification ${getColor2("ring")}`}
           />
         </Tooltip>
-        <Avatar src={<img draggable={false} src={'https://piepme.s3.ap-southeast-1.amazonaws.com/23822/images/avartaoohhay'} alt="avatar" />} />
+        <Avatar src={<img draggable={false} src={''} alt="avatar" />} />
       </div>
     </Flex>
   );
