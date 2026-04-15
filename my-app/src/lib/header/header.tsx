@@ -21,7 +21,7 @@ function Header() {
       <div className="logo-search">
         <span>
           <img
-            src="../src/assets/logo-piepme-header.png"
+            src="https://res.cloudinary.com/dcu47l2uc/image/upload/v1776244870/logo-piepme-header_wiho0z.png"
             alt="Logo"
             style={{ height: 22 }}
             onClick={handleLogoClick}
