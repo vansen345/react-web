@@ -1,5 +1,6 @@
 import { useLazyGetHomeListQuery } from "@/features/home/homeApiSlice";
-import { Button, Flex, Input, Tooltip, type ConfigProviderProps } from "antd";
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Flex, Input, Tooltip, type ConfigProviderProps } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useHeaderController } from "./header_controller";
@@ -22,7 +23,7 @@ function Header() {
         <span>
           <img
             src="https://res.cloudinary.com/dcu47l2uc/image/upload/v1776244870/logo-piepme-header_wiho0z.png"
-            alt="Logo"
+            alt="Logo" 
             style={{ height: 22 }}
             onClick={handleLogoClick}
           />
@@ -69,6 +70,7 @@ function Header() {
             className={`button-notification ${getColor2("ring")}`}
           />
         </Tooltip>
+        <Avatar icon={<UserOutlined />} />
       </div>
     </Flex>
   );
