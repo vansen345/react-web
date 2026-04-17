@@ -15,3 +15,14 @@ export interface BaseResponseObject<T> {
   offset: number;
   elements: T;
 }
+
+export type TResponseStatus =
+    | 'success' // db
+    | 'error' // db
+    | 'fail'; // axios
+
+export interface IResponse<T> {
+    status: TResponseStatus;
+    elements?: T;
+    message?: string;
+}
