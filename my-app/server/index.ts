@@ -15,6 +15,20 @@ app.use((req, res, next) => {
     console.log(`${time} > >>>${req.method} ${req.path}`, JSON.stringify(logData));
     next();
 });
+app.use('/piepapi', (req, res, next) => {
+    const accept = req.headers.accept || ''
+    if (accept.includes('text/html')) {
+        return res.status(404).send(`
+            <html>
+                <body>
+                    <h1>404 - Page Not Found</h1>
+                    <a href="https://react-web-2bss.vercel.app">Back to home</a>
+                </body>
+            </html>
+        `)
+    }
+    next()
+})
 // 👉 mount route
 homeRoute(app);
 const PORT = process.env.PORT || 3007;

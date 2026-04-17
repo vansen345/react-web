@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/piepapi/:path*",
-      "destination": "https://my-app-proxy.onrender.com/piepapi/:path*"
+      "destination": "https://react-web-nny1.onrender.com/piepapi/:path*"
     },
     {
       "source": "/(.*)",
