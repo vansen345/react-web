@@ -1,7 +1,6 @@
 {
   "name": "my-app-proxy",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "start": "npx tsx index.ts"
   },
