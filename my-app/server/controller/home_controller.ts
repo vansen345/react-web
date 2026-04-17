@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { HomeItem } from '../../model/home_type';
-import { BaseResponse } from "../../model/response_type";
+import { HomeItemPrx } from '../../server/model/home_type.js';
+import { BaseResponsePRX } from "../../server/model/response_type.js";
 import { API_CONFIG } from "../config_api";
 import { callApi } from "../services";
 
@@ -10,7 +10,7 @@ export const homeController = {
       const { limit = 15, offset = 0 } = req.query;
       const token = req.headers.authorization;
 
-      const result = await callApi<BaseResponse<HomeItem[]>>({
+      const result = await callApi<BaseResponsePRX<HomeItemPrx[]>>({
         endpoint: API_CONFIG.ENDPOINTS.HOME,
         query: { limit, offset },
         token,
