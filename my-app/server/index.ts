@@ -15,6 +15,10 @@ app.use((req, res, next) => {
     console.log(`${time} > >>>${req.method} ${req.path}`, JSON.stringify(logData));
     next();
 });
+app.get('/piepapi/proxy', (req, res) => {
+    res.json({ status: 'ok' })
+})
+
 app.use('/piepapi', (req, res, next) => {
     const accept = req.headers.accept || ''
     if (accept.includes('text/html')) {
