@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import detailRoute from "./routes/detail_route.js";
 import homeRoute from "./routes/home_route.js";
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use('/piepapi', (req, res, next) => {
 })
 // 👉 mount route
 homeRoute(app);
+detailRoute(app);
 const PORT = process.env.PORT || 3007;
 
 app.listen(PORT, () => {
