@@ -3,5 +3,6 @@ export const API_CONFIG = {
 
   ENDPOINTS: {
     HOME: "/home/getListHome",
+    DETAIL: "/home/getDetail"
   },
 };

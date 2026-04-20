@@ -4,7 +4,7 @@ export interface BaseResponse<T> {
   total: number;
   limit: number;
   offset: number;
-  elements: T[];
+  elements: T;
 }
 
 export interface BaseResponseObject<T> {
