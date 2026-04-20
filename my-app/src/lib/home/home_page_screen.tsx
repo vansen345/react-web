@@ -1,16 +1,27 @@
 import { Masonry } from "antd";
 import { getDecryptedTitle } from "../../../model/home_type";
-import { useGetHomeListQuery } from "../../features/home/homeApiSlice";
+import { useHomePageController } from "../../features/home/home_controller";
+import DetailScreen from "../detail/detail_screen";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import "./home_style.css";
 
 function HomePageScreen() {
   useDocumentTitle("APP");
-  const { data, isLoading } = useGetHomeListQuery({ limit: 10, offset: 0 });
 
-  if (isLoading) return <div>Loading...</div>;
+  const {
+    list,
+    isLoading,
+    isModalOpen,
+    selectedItem,
+    handleItemClick,
+    handleOk,
+    handleCancel,
+    hasMore,
+    bottomRef,
+  } = useHomePageController();
 
-  const list = data?.elements ?? [];
+  const isInitialLoading = isLoading && list.length === 0;
+  if (isInitialLoading) return <div>Loading...</div>;
 
   return (
     <section id="home-page">
@@ -18,14 +29,14 @@ function HomePageScreen() {
         <Masonry
           columns={3}
           gutter={8}
-          items={list.map((img, index) => ({
-            key: `item-${index}`,
-            data: img,
+          items={list.map((item) => ({
+            key: item._id,
+            data: item,
           }))}
           itemRender={({ data }) => (
-            <div className="content-item">
+            <div className="content-item" onClick={() => handleItemClick(data)}>
               <div className="content-item-img">
-                <img src={data.PV307} alt="" loading="lazy" />
+                {data.PV307 && <img src={data.PV307} alt="" loading="lazy" />}
               </div>
               <div className="title-content">
                 <p className="title">{getDecryptedTitle(data.PV301)}</p>
@@ -34,7 +45,23 @@ function HomePageScreen() {
             </div>
           )}
         />
+
+        {/* element ẩn cuối list, trigger IntersectionObserver */}
+        <div ref={bottomRef} style={{ height: 20 }} />
+
+        {isLoading && list.length > 0 && hasMore && (
+          <div style={{ textAlign: "center", padding: 16 }}>
+            Loading more...
+          </div>
+        )}
       </div>
+
+      <DetailScreen
+        isModalOpen={isModalOpen}
+        item={selectedItem}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      />
     </section>
   );
 }

@@ -1,0 +1,12 @@
+.detail-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .detail-title {
+    .text-title {
+      font-size: 25px;
+      font-weight: 700;
+      color: #f3495b;
+    }
+  }
+}

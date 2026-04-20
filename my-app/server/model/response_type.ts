@@ -1,10 +1,10 @@
-export interface BaseResponse<T> {
+export interface BaseResponsePRX<T> {
   status: string;
   timesv: string;
   total: number;
   limit: number;
   offset: number;
-  elements: T;
+  elements: T[];
 }
 
 export interface BaseResponseObject<T> {
