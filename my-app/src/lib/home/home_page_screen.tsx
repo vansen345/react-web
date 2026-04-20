@@ -16,24 +16,27 @@ function HomePageScreen() {
     handleItemClick,
     handleOk,
     handleCancel,
+    hasMore,
+    bottomRef,
   } = useHomePageController();
 
-  if (isLoading) return <div>Loading...</div>;
+  const isInitialLoading = isLoading && list.length === 0;
+  if (isInitialLoading) return <div>Loading...</div>;
 
   return (
     <section id="home-page">
-      <div className="home-page-container" >
+      <div className="home-page-container">
         <Masonry
           columns={3}
           gutter={8}
-          items={list.map((item, index) => ({
-            key: `item-${index}`,
+          items={list.map((item) => ({
+            key: item._id,
             data: item,
           }))}
           itemRender={({ data }) => (
             <div className="content-item" onClick={() => handleItemClick(data)}>
               <div className="content-item-img">
-                <img src={data.PV307} alt="" loading="lazy" />
+                {data.PV307 && <img src={data.PV307} alt="" loading="lazy" />}
               </div>
               <div className="title-content">
                 <p className="title">{getDecryptedTitle(data.PV301)}</p>
@@ -42,6 +45,15 @@ function HomePageScreen() {
             </div>
           )}
         />
+
+        {/* element ẩn cuối list, trigger IntersectionObserver */}
+        <div ref={bottomRef} style={{ height: 20 }} />
+
+        {isLoading && list.length > 0 && hasMore && (
+          <div style={{ textAlign: "center", padding: 16 }}>
+            Loading more...
+          </div>
+        )}
       </div>
 
       <DetailScreen

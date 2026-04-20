@@ -1,7 +1,7 @@
 import Modal from "antd/es/modal/Modal";
 import { getDecryptedTitle, type HomeItem } from "../../../model/home_type";
+import { useDetailController } from "../../features/detail/detail_controller";
 import "./detail.css";
-import { useDetailController } from "./detail_controller";
 
 interface DetailScreenProps {
   isModalOpen: boolean;
