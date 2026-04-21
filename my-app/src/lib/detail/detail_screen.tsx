@@ -6,6 +6,7 @@ import {
   type HomeItem,
 } from "../../../model/home_type";
 import { useDetailController } from "../../features/detail/detail_controller";
+import { formatTimeAgo } from "../utils";
 import "./detail.css";
 
 interface DetailScreenProps {
@@ -45,26 +46,35 @@ function DetailScreen({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <div className="detail-body">
-          <div className="detail-title">
-            <h1 className="text-title">{getDecryptedTitle(detail?.PV301)}</h1>
-          </div>
-          <div className="detail-content">
-            {getDecryptedContent(detail?.PV305)}
-          </div>
-          {detail?.PO322.image.map((img, index) => (
-            <div key={index} style={{ aspectRatio: `1/${img.RATIO}` }}>
-              <Image
-                src={img.IMG}
-                alt={img.DES}
-                width="100%"
-                height="100%"
-                style={{ objectFit: "cover" }}
-                preview={false}
-              />
+        <>
+          <div className="detail-body">
+            <div className="detail-title">
+              <h1 className="text-title">{getDecryptedTitle(detail?.PV301)}</h1>
             </div>
-          ))}
-        </div>
+            <div className="text-base font-normal text-black leading-[1.56]">
+              {getDecryptedContent(detail?.PV305)}
+            </div>
+            {detail?.PO322.image.map((img, index) => (
+              <div key={index} style={{ aspectRatio: `1/${img.RATIO}` }}>
+                <Image
+                  src={img.IMG}
+                  alt={img.DES}
+                  width="100%"
+                  height="100%"
+                  style={{ objectFit: "cover" }}
+                  preview={false}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+            <div className="text-sm font-medium text-[#686868]">
+              {"Đăng vào: " + formatTimeAgo(detail?.PD308 || "")}
+            </div>
+          </div>
+          <div>
+            
+          </div>
+        </>
       )}
     </Modal>
   );
