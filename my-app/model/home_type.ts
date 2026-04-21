@@ -1,10 +1,10 @@
 export interface Post {
-    id: string;
+  id: string;
   author: string;
   width: number;
   height: number;
   url: string;
-  download_url: string; 
+  download_url: string;
 }
 
 export interface HomeItem {
@@ -77,3 +77,8 @@ export const getDecryptedTitle = (pv301?: string): string => {
   return decodeURIComponent(pv301?.trim() ?? "");
 };
 
+export const getDecryptedContent = (pv314?: string): string => {
+  return decodeURIComponent(pv314?.trim() ?? "");
+};
+
+  

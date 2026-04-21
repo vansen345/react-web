@@ -8,12 +8,21 @@ dotenv.config();
 
 const app = express();
 
+const colors = {
+    reset: "\x1b[0m",
+    green: "\x1b[32m",
+    yellow: "\x1b[33m",
+    blue: "\x1b[34m",
+    red: "\x1b[31m",
+    cyan: "\x1b[36m",
+};
+
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
     const time = new Date().toLocaleTimeString();
     const logData = req.method === "GET" ? req.query : req.body;
-    console.log(`${time} > >>>${req.method} ${req.path}`, JSON.stringify(logData));
+    
     next();
 });
 app.get('/piepapi/proxy', (req, res) => {
@@ -40,5 +49,5 @@ detailRoute(app);
 const PORT = process.env.PORT || 3007;
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
