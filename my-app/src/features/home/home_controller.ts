@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { HomeItem } from "../../../model/home_type";
+import { useNavigate } from "react-router-dom";
+import slugify from "slugify";
+import { getDecryptedTitle, type HomeItem } from "../../../model/home_type";
 import { useLazyGetHomeListQuery } from "../../features/home/homeApiSlice";
+
 
 const LIMIT = 10;
 
@@ -18,6 +21,7 @@ export const useHomePageController = () => {
     const bottomRef = useRef<HTMLDivElement>(null);
 
     const [trigger] = useLazyGetHomeListQuery();
+    const navigate = useNavigate();
 
     const fetchList = useCallback(async (newOffset: number, isInitial = false) => {
         if (isLoadingRef.current || (!isInitial && !hasMoreRef.current)) return;
@@ -47,7 +51,6 @@ export const useHomePageController = () => {
         }
     }, [trigger]);
 
-    // Load lần đầu
     useEffect(() => {
         if (!isInitializedRef.current) {
             isInitializedRef.current = true;
@@ -55,7 +58,6 @@ export const useHomePageController = () => {
         }
     }, [fetchList]);
 
-    // Auto load more khi chưa đủ content
     useEffect(() => {
         if (list.length > 0 && !isLoading && hasMoreRef.current) {
             if (window.innerHeight >= document.documentElement.scrollHeight - 50) {
@@ -84,10 +86,12 @@ export const useHomePageController = () => {
     const handleItemClick = (item: HomeItem) => {
         setSelectedItem(item);
         setIsModalOpen(true);
+        const slug = `${slugify(getDecryptedTitle(item?.PV301), { lower: true, locale: "vi" })}-${item.PV325}.html`;
+        navigate(`/${slug}`);
     };
 
     const handleOk = () => setIsModalOpen(false);
-    const handleCancel = () => setIsModalOpen(false);
+    const handleCancel = () => { setIsModalOpen(false); navigate("/"); };
 
     return {
         list,
